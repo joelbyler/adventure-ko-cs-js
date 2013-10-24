@@ -5,6 +5,8 @@
   App.ViewModels.Question = (function() {
     function Question(questionData) {
       this.addVote = __bind(this.addVote, this);
+      this.removeExistingVote = __bind(this.removeExistingVote, this);
+      this.getExistingVote = __bind(this.getExistingVote, this);
       var _this = this;
       this.content = questionData.content;
       this.author = questionData.author;
@@ -14,13 +16,32 @@
       });
     }
 
-    Question.prototype.addVote = function(voter, voteType) {
-      var voteValue;
-      voteValue = voteType === 'up' ? 1 : -1;
-      return this.votes.push({
-        value: voteValue,
-        voter: voter
+    Question.prototype.getExistingVote = function(voterName) {
+      return _(this.votes()).find(function(vote) {
+        return vote.voter === voterName;
       });
+    };
+
+    Question.prototype.removeExistingVote = function(existingVote) {
+      return this.votes.remove(function(vote) {
+        return vote.voter === existingVote.voter;
+      });
+    };
+
+    Question.prototype.addVote = function(voter, voteType) {
+      var existingVote, voteValue;
+      voteValue = voteType === 'up' ? 1 : -1;
+      existingVote = this.getExistingVote(voter);
+      if (existingVote) {
+        if (existingVote.value !== voteValue) {
+          return this.removeExistingVote(existingVote);
+        }
+      } else {
+        return this.votes.push({
+          value: voteValue,
+          voter: voter
+        });
+      }
     };
 
     Question.prototype.addVoteToTally = function(tally, vote) {
