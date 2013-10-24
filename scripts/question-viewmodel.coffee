@@ -5,12 +5,21 @@ class App.ViewModels.Question
     @votes = ko.observableArray(questionData.votes || [])
     @voteTally = ko.computed =>
       @votes().reduce @addVoteToTally, 0
-
+    @userVotedUp = ko.computed =>
+      @userVoted 1
+    @userVotedDown = ko.computed =>
+      @userVoted -1
+      
   getExistingVote: (voterName) =>
     _(@votes()).find (vote) ->
       vote.voter == voterName
 
-  removeExistingVote: (existingVote) =>
+  userVoted: (voteValue) =>
+    userVote = @getExistingVote overflowViewModel.userName()
+    userVoted = (userVote and userVote.value == voteValue)
+    userVoted
+ 
+   removeExistingVote: (existingVote) =>
     @votes.remove (vote) ->
       vote.voter == existingVote.voter
 

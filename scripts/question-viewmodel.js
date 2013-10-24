@@ -6,6 +6,7 @@
     function Question(questionData) {
       this.addVote = __bind(this.addVote, this);
       this.removeExistingVote = __bind(this.removeExistingVote, this);
+      this.userVoted = __bind(this.userVoted, this);
       this.getExistingVote = __bind(this.getExistingVote, this);
       var _this = this;
       this.content = questionData.content;
@@ -14,12 +15,25 @@
       this.voteTally = ko.computed(function() {
         return _this.votes().reduce(_this.addVoteToTally, 0);
       });
+      this.userVotedUp = ko.computed(function() {
+        return _this.userVoted(1);
+      });
+      this.userVotedDown = ko.computed(function() {
+        return _this.userVoted(-1);
+      });
     }
 
     Question.prototype.getExistingVote = function(voterName) {
       return _(this.votes()).find(function(vote) {
         return vote.voter === voterName;
       });
+    };
+
+    Question.prototype.userVoted = function(voteValue) {
+      var userVote, userVoted;
+      userVote = this.getExistingVote(overflowViewModel.userName());
+      userVoted = userVote && userVote.value === voteValue;
+      return userVoted;
     };
 
     Question.prototype.removeExistingVote = function(existingVote) {

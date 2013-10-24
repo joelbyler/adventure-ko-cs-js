@@ -32,9 +32,9 @@
 	    <ul id="questions" data-bind="foreach: questions">
         <li class="question">
           <div class="voteStatus">
-            <a class="vote voteup" data-bind="click: addVote.bind($data, $parent.userName(), 'up')"></a>
+            <a class="vote voteup" data-bind="click: addVote.bind($data, $parent.userName(), 'up'), css: {selected: userVotedUp}"></a>
             <div class="votecount" data-bind="text: voteTally"></div>
-            <a class="vote votedown selected" data-bind="click: addVote.bind($data, $parent.userName(), 'down')"></a>
+            <a class="vote votedown" data-bind="click: addVote.bind($data, $parent.userName(), 'down'), css: {selected: userVotedDown}"></a>
           </div>
           <div class="questionText">
             <p data-bind="text: content"></p>
