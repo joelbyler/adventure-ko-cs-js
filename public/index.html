@@ -16,34 +16,34 @@
      <hgroup>
        <h1>cyOverflow</h1>
      </hgroup>
-	</header>
-	<div class="content">
+  </header>
+  <div class="content">
     <section id="userInput">
-	        <div id="loginView" data-bind="visible: !isLoggedIn()">
-	            <label for="userName" id="logInPrompt">Your name:</label>
-	            <input id="userName" type="text" data-bind="value: userName" />
-	            <a id="logIn" class="button" data-bind="click: loginUser" >That's me!</a>
-	        </div>
-          <div data-bind="visible: isLoggedIn()">
-              <label for="newQuestion" id="questionPrompt"><span data-bind="text: userName">Adventurer</span> wants to know...</label>
+          <div id="loginView" data-bind="visible: !isLoggedIn()">
+              <label for="userName" id="logInPrompt">Your name:</label>
+              <input id="userName" type="text" data-bind="value: userName" />
+              <a id="logIn" class="button" data-bind="click: loginUser" >That's me!</a>
+          </div>
+          <div id="newQuestionView" data-bind="visible: isLoggedIn()">
+              <label for="newQuestion" id="questionPrompt"><span data-bind="text: userName"></span> wants to know...</label>
               <textarea cols=20 rows=2 id="newQuestion" data-bind="value: newQuestionText"></textarea>
               <a id="addItem" data-bind="click: addQuestion" class="button">Ask now!</a>
           </div>
-	    </section>
-	    <ul id="questions" data-bind="foreach: questions">
+      </section>
+      <ul id="questions" data-bind="foreach: questions">
         <li class="question">
           <div class="voteStatus">
-            <a class="vote voteup" data-bind="click: addVote.bind($data, $parent.userName(), 'up'), css: {selected: userVotedUp}"></a>
+              <a class="vote voteup" data-bind="click: addVote.bind($data, $parent.userName(), 'up'),css: {selected: userVotedUp}"></a>
             <div class="votecount" data-bind="text: voteTally"></div>
-            <a class="vote votedown" data-bind="click: addVote.bind($data, $parent.userName(), 'down'), css: {selected: userVotedDown}"></a>
+            <a class="vote votedown " data-bind="click: addVote.bind($data, $parent.userName(), 'down'),css: {selected: userVotedDown}"></a>
           </div>
           <div class="questionText">
-            <p data-bind="text: content"></p>
-            <div class="questionAuthor">From: <span data-bind="text: author"></span></div>
+              <p data-bind="text: content"></p>
+              <div class="questionAuthor">From: <span data-bind="text: author"></span></div>
           </div>
-        </li>
-      </ul>
-	</div>
+      </li>
+    </ul>
+  </div>
 
   <script type="text/javascript" src="scripts/question-viewmodel.js"></script>
   <script type="text/javascript" src="scripts/overflow-viewmodel.js"></script>

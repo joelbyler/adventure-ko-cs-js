@@ -1,2 +1,2 @@
 window.App =
-    ViewModels: {}
+  ViewModels: {}

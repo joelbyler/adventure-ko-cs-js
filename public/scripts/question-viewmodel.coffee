@@ -10,7 +10,7 @@ class App.ViewModels.Question
       @userVoted 1
     @userVotedDown = ko.computed =>
       @userVoted -1
-      
+
   getExistingVote: (voterName) =>
     _(@votes()).find (vote) ->
       vote.voter == voterName
@@ -19,20 +19,20 @@ class App.ViewModels.Question
     userVote = @getExistingVote overflowViewModel.userName()
     userVoted = (userVote and userVote.value == voteValue)
     userVoted
- 
-   removeExistingVote: (existingVote) =>
+
+  removeExistingVote: (existingVote) =>
     @votes.remove (vote) ->
       vote.voter == existingVote.voter
 
-  addVote: (voter,voteType) =>
-    voteValue = if voteType == 'up' then 1 else -1
-    existingVote = @getExistingVote voter
- 
-    if existingVote
-      if existingVote.value != voteValue
-        @removeExistingVote existingVote
-    else
-      @votes.push { value: voteValue, voter: voter }
+  addVote: (voter,voteType) =>
+    voteValue = if voteType == 'up' then 1 else -1 
+    existingVote = @getExistingVote voter
+
+    if existingVote
+      if existingVote.value != voteValue
+        @removeExistingVote existingVote
+    else
+      @votes.push { value: voteValue, voter: voter }
 
   addVoteToTally: (tally, vote) ->
-    tally + vote.value    
+    tally + vote.value
