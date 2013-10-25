@@ -33,8 +33,9 @@ io.sockets.on('connection', function(socket) {
       return question.id === voteData.questionId;
     });
     updatedQuestion.votes.push(voteData.vote);
+    socket.broadcast.emit('updateQuestion',JSON.stringify(updatedQuestion));
   });
-  
+
   socket.on('removeVote', function(voteData) {
     updatedQuestion = _(questions).find( function(question) {
       return question.id === voteData.questionId;
@@ -44,6 +45,6 @@ io.sockets.on('connection', function(socket) {
         vote.value === voteData.vote.value;
     });
     updatedQuestion.votes = newVotes;
+    socket.broadcast.emit('updateQuestion',JSON.stringify(updatedQuestion));
   });
-
 });
