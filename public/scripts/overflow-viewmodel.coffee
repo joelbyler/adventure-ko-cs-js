@@ -12,5 +12,8 @@ class App.ViewModels.Overflow
       content: @newQuestionText()
       author: @userName()
     questionViewModel = new App.ViewModels.Question(questionData)
+    App.socket.emit 'addQuestion', ko.toJSON(questionViewModel), (updatedQuestionJson) ->
+      updatedQuestionViewModel = JSON.parse updatedQuestionJson
+      questionViewModel.id = updatedQuestionViewModel.id
     @questions.push questionViewModel
     @newQuestionText ""

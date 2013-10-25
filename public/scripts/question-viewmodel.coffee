@@ -1,5 +1,6 @@
 class App.ViewModels.Question
   constructor: (questionData) ->
+    @id = questionData.id
     @content = questionData.content
     @author = questionData.author
     @votes = ko.observableArray(questionData.votes || [])
