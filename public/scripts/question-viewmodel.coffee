@@ -31,8 +31,11 @@ class App.ViewModels.Question
     if existingVote
       if existingVote.value != voteValue
         @removeExistingVote existingVote
+        App.socket.emit 'removeVote', {questionId:@id, vote: existingVote}
     else
-      @votes.push { value: voteValue, voter: voter }
+      vote = { value: voteValue, voter: voter }
+      @votes.push vote
+      App.socket.emit 'addVote', {questionId:@id,vote: vote}
 
   addVoteToTally: (tally, vote) ->
     tally + vote.value
