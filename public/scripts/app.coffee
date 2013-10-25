@@ -8,3 +8,8 @@ $ ->
         _(questionsData).each (questionData) ->
           questionViewModel = new App.ViewModels.Question(questionData)
           overflowViewModel.questions.push questionViewModel
+
+  App.socket.on 'newQuestion', (questionJsonData) ->
+    questionData = JSON.parse questionJsonData
+    questionViewModel = new App.ViewModels.Question(questionData)
+    overflowViewModel.questions.push questionViewModel

@@ -22,6 +22,7 @@ io.sockets.on('connection', function(socket) {
  
       updatedQuestionJsonData = JSON.stringify(questionData);
       callback(updatedQuestionJsonData);
+      socket.broadcast.emit('newQuestion', updatedQuestionJsonData);
   }); 
 });
 
